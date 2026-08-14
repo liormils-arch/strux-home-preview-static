@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#050607">
+<title>STRUX</title>
+<style>
+/* =========================================================
+   STRUX HOME — v4 FINAL
+   Base structure: user-provided file (best DOM-order fidelity)
+   Fixes applied against reference crops + verified real source
+   (real onclick/id/data-cms/aria-label values pulled live from
+   GitHub public/index.html — see notes at bottom of chat reply)
+   ========================================================= */
+:root {
+    --bg: #050607;
+    --text: #f4f4f4;
+    --muted: #9a9da1;
+    --orange: #ff5a00;
+    --green: #35c98a;
+    --blue: #4ea8ff;
+    --purple: #9b5de5;
+}
+* { box-sizing: border-box; }
+html, body {
+    margin: 0; padding: 0; width: 100%; min-height: 100%;
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+}
+body { overflow-x: hidden; background: #000; }
+button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; }
+img { display: block; max-width: 100%; }
+#app {
+    width: min(100%, 430px);
+    margin: 0 auto;
+    min-height: 100vh;
+    position: relative;
+    background: radial-gradient(circle at 50% 0%, rgba(255,90,0,.035), transparent 35%), var(--bg);
+}
+/* =========================================================
+   HEADER — DOM order: RIGHT cluster (profile,location,a11y) FIRST,
+   BRAND second, LEFT cluster (bell) LAST.
+   RTL grid places DOM-first in the rightmost column.
+   ========================================================= */
+#topBar {
+    width: 100%;
+    min-height: 84px;
+    padding: 12px 14px 8px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    position: relative;
+    z-index: 50;
+}
+.header-cluster { display: flex; align-items: center; gap: 8px; }
+.header-button {
+    width: 36px; height: 36px; flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,.10);
+    background: #101214;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+}
+.header-button i { font-size: 18px; color: #d7d7d7; }
+.header-button svg { width: 18px; height: 18px; color: #d7d7d7; }
+.header-button .dot {
+    position: absolute; top: 6px; right: 7px;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--orange);
+    border: 1px solid #101214;
+}
+.strux-brand { text-align: center; direction: ltr; line-height: 1; }
+.strux-logo {
+    font-size: 27px; font-weight: 900; letter-spacing: -1.5px; white-space: nowrap;
+}
+.strux-logo .orange { color: var(--orange); }
+.strux-beta {
+    margin-left: 6px; padding: 3px 6px; border-radius: 5px;
+    background: #24272a; color: #dedede; font-size: 8px; font-weight: 800;
+    letter-spacing: .5px; vertical-align: middle;
+}
+.strux-tagline {
+    margin-top: 7px; direction: rtl;
+    color: #9a9da1; font-size: 13px; font-weight: 400;
+}
+/* =========================================================
+   HOME
+   ========================================================= */
+#s-home { width: 100%; padding: 0 12px 90px; }
+/* =========================================================
+   HERO — height locked 240px per prior approved decision
+   ========================================================= */
+.hm-hero {
+    position: relative; width: 100%; height: 240px; min-height: 240px;
+    margin: 15px 0 0; overflow: hidden; border-radius: 24px;
+    border: 1px solid rgba(255,255,255,.075);
+    background: linear-gradient(135deg, rgba(255,255,255,.035), rgba(255,255,255,.008));
+}
+/* LOCAL ASSET SLOT — do not replace with external image. */
+.hm-hero-image {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: .62; z-index: 0;
+}
+.hm-hero-overlay {
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(90deg, rgba(5,6,7,.94) 0%, rgba(5,6,7,.70) 43%, rgba(5,6,7,.18) 100%);
+}
+.hm-hero-content { position: relative; z-index: 2; height: 100%; display: flex; align-items: center; padding: 20px; }
+.hm-hero-text { width: auto; max-width: 48%; margin-right: auto; text-align: right; }
+.hm-title { margin: 0; font-size: 29px; line-height: 1.15; font-weight: 850; letter-spacing: -.8px; }
+.hm-title .orange { display: block; color: var(--orange); margin-top: 4px; }
+.hm-sub { margin: 12px 0 0; color: #c4c6c8; font-size: 14px; line-height: 1.55; }
+/* =========================================================
+   PROJECT HERO — preserved functional structure for returning users
+   ========================================================= */
+#homeProjectHero { display: none; }
+#homeHeroLabel, #homeHeroTitle, #homeHeroStatus, #homeHeroProgress, #homeHeroNext, #homeHeroUpdated { display: none; }
+/* =========================================================
+   STEPS
+   ========================================================= */
+.hm-steps {
+    width: 100%; margin: 14px 0 0;
+    display: grid; grid-template-columns: 1fr 20px 1fr 20px 1fr;
+    align-items: stretch; direction: rtl;
+    border: 1px solid rgba(255,255,255,.13);
+    border-radius: 18px;
+    background: rgba(255,255,255,.025);
+    padding: 12px 8px;
+}
+.hm-step {
+    min-height: 78px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 2px 4px;
+}
+.hm-step-arrow { display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.4); font-size: 22px; font-weight: 300; }
+.hm-step-icon {
+    width: 46px; height: 46px; margin-bottom: 8px;
+    border-radius: 15px;
+    background: linear-gradient(155deg, rgba(255,90,0,.16), rgba(255,255,255,.02));
+    border: 1px solid rgba(255,255,255,.06);
+    display: flex; align-items: center; justify-content: center;
+}
+.hm-step-icon svg { width: 22px; height: 22px; stroke: var(--orange); fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.hm-step-title { font-size: 11px; line-height: 1.3; font-weight: 800; white-space: nowrap; }
+.hm-step-title .number { color: var(--orange); }
+.hm-step-desc { margin-top: 4px; color: #888c90; font-size: 9px; line-height: 1.35; }
+/* =========================================================
+   SECTION TITLE
+   ========================================================= */
+.hm-section-title { margin: 26px 4px 12px; font-size: 21px; line-height: 1.2; font-weight: 800; text-align: right; }
+.hm-section-title::after { content: ""; display: block; width: 43px; height: 3px; margin-top: 9px; background: var(--orange); }
+/* =========================================================
+   PRIMARY CARDS
+   DOM ORDER: GREEN -> ORANGE -> PURPLE (RTL visual: PURPLE|ORANGE|GREEN)
+   ========================================================= */
+.hm-doors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; direction: rtl; }
+.hm-door {
+    min-width: 0; min-height: 275px; padding: 15px 10px 14px;
+    border-radius: 20px; position: relative; overflow: hidden;
+    background: linear-gradient(180deg, rgba(18,25,31,.98), rgba(13,19,24,.98));
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.hm-door.green { border: 1px solid rgba(53,201,138,.55); }
+.hm-door.orange { border: 1px solid rgba(255,90,0,.55); }
+.hm-door.purple { border: 1px solid rgba(155,93,229,.55); }
+.hm-door-art { position: absolute; left: -10px; right: -10px; bottom: 0; height: 100px; opacity: .13; pointer-events: none; }
+.hm-door-art svg { width: 100%; height: 100%; fill: none; stroke-width: 1.4; }
+.hm-door.green .hm-door-art svg { stroke: var(--green); }
+.hm-door.orange .hm-door-art svg { stroke: var(--orange); }
+.hm-door.purple .hm-door-art svg { stroke: var(--purple); }
+.hm-door-icon {
+    position: relative; z-index: 2; width: 52px; height: 52px; margin-bottom: 14px;
+    border-radius: 16px; display: flex; align-items: center; justify-content: center; color: #fff;
+}
+.hm-door.green .hm-door-icon { background: linear-gradient(150deg, color-mix(in srgb, var(--green) 100%, white 22%), var(--green) 65%); box-shadow: 0 6px 16px rgba(53,201,138,.25); }
+.hm-door.orange .hm-door-icon { background: linear-gradient(150deg, color-mix(in srgb, var(--orange) 100%, white 22%), var(--orange) 65%); box-shadow: 0 6px 16px rgba(255,90,0,.25); }
+.hm-door.purple .hm-door-icon { background: linear-gradient(150deg, color-mix(in srgb, var(--purple) 100%, white 22%), var(--purple) 65%); box-shadow: 0 6px 16px rgba(155,93,229,.25); }
+.hm-door-icon svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.hm-door-title { position: relative; z-index: 2; margin: 0; font-size: 15px; line-height: 1.3; font-weight: 800; }
+.hm-door-desc { position: relative; z-index: 2; margin: 7px 0 0; color: #909499; font-size: 10px; line-height: 1.5; }
+.hm-door-link { position: relative; z-index: 2; display: block; margin-top: 10px; font-size: 11px; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+.hm-door.green .hm-door-link { color: var(--green); }
+.hm-door.orange .hm-door-link { color: var(--orange); }
+.hm-door.purple .hm-door-link { color: var(--purple); }
+.hm-door-arrow {
+    position: absolute; z-index: 5; left: 11px; bottom: 11px;
+    width: 40px; height: 40px; border-radius: 50%; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+}
+.hm-door.green .hm-door-arrow { background: var(--green); }
+.hm-door.orange .hm-door-arrow { background: var(--orange); }
+.hm-door.purple .hm-door-arrow { background: var(--purple); }
+.hm-door-arrow svg { width: 19px; height: 19px; stroke: currentColor; fill: none; stroke-width: 2.2; }
+/* =========================================================
+   SECONDARY CARDS
+   DOM ORDER: GREEN -> BLUE -> ORANGE (RTL visual: ORANGE|BLUE|GREEN)
+   ========================================================= */
+.hm-explore { margin-top: 18px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; direction: rtl; }
+.hm-explore-card {
+    min-height: 138px; padding: 14px 10px 28px; border: 1px solid rgba(255,255,255,.16);
+    border-radius: 18px; background: #10171d; position: relative; overflow: hidden; text-align: right;
+    display: flex; align-items: flex-start; gap: 8px; direction: rtl;
+}
+.hm-explore-icon {
+    width: 36px; height: 36px; border-radius: 50%; border: 1px solid currentColor;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: transparent;
+}
+.hm-explore-text { min-width: 0; }
+.hm-explore-icon svg { width: 19px; height: 19px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.hm-explore-card.green { color: var(--green); }
+.hm-explore-card.blue { color: var(--blue); }
+.hm-explore-card.orange { color: var(--orange); }
+.hm-explore-title { margin: 0; color: #f0f0f0; font-size: 13px; font-weight: 800; line-height: 1.3; }
+.hm-explore-desc { margin: 5px 0 0; color: #85898d; font-size: 9.5px; line-height: 1.45; }
+.hm-explore-arrow { position: absolute; left: 10px; bottom: 10px; font-size: 18px; color: currentColor; }
+/* =========================================================
+   DREAM STUDIO — CTA + illustration BOTH on the left
+   ========================================================= */
+.hm-promo {
+    width: 100%; min-height: 130px; margin-top: 18px; border-radius: 22px;
+    border: 1px solid rgba(255,90,0,.55); background: #10171d; position: relative; overflow: hidden;
+    display: flex; align-items: center; padding: 18px 18px;
+}
+.hm-promo-art {
+    position: absolute; z-index: 1; left: -6px; bottom: -10px; width: 168px; height: 110px;
+    opacity: .85; pointer-events: none;
+}
+.hm-promo-art::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(16,23,29,0) 55%, rgba(16,23,29,.97) 100%);
+}
+.hm-promo-art svg { width: 100%; height: 100%; fill: none; stroke: #aab3ba; stroke-width: 1; }
+.hm-promo-cta {
+    position: absolute; z-index: 4; left: 16px; top: 50%; transform: translateY(-50%);
+    width: 49px; height: 49px; border-radius: 50%; background: #fff; color: var(--orange);
+    display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 18px rgba(0,0,0,.28);
+}
+.hm-promo-cta svg { width: 23px; height: 23px; stroke: currentColor; fill: none; stroke-width: 2.2; }
+.hm-promo-spark {
+    position: absolute; z-index: 3; right: 16px; top: 14px;
+    width: 38px; height: 38px; border-radius: 12px; background: var(--orange); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+}
+.hm-promo-spark svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.7; }
+.hm-promo-content { position: relative; z-index: 2; width: 100%; text-align: right; padding-right: 54px; }
+.hm-promo-title-row { display: flex; align-items: center; justify-content: flex-start; gap: 7px; direction: rtl; }
+.hm-promo-badge { padding: 4px 8px; border-radius: 7px; background: var(--orange); color: #fff; font-size: 10px; font-weight: 800; line-height: 1; }
+.hm-promo-title { margin: 0; font-size: 18px; font-weight: 850; }
+.hm-promo-sub { margin: 8px 0 0; color: #b9bbbe; font-size: 11px; line-height: 1.5; }
+/* =========================================================
+   BOTTOM NAV — DOM order home,search,about (home right, active)
+   ========================================================= */
+.bottom-nav {
+    position: fixed; z-index: 100; left: 50%; bottom: 0;
+    width: min(100%, 430px); transform: translateX(-50%); height: 68px;
+    padding: 0 26px; display: grid; grid-template-columns: repeat(3, 1fr); direction: rtl;
+    background: rgba(7,8,9,.97); border-top: 1px solid rgba(255,255,255,.09); backdrop-filter: blur(18px);
+}
+.bottom-nav-item {
+    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 5px; color: #777b80; font-size: 10px;
+}
+.bottom-nav-item svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.7; }
+.bottom-nav-item.active { color: var(--orange); }
+.bottom-nav-item.active::after {
+    content: ""; position: absolute; bottom: 4px; width: 22px; height: 2px; border-radius: 2px; background: var(--orange);
+}
+@media (max-width: 350px) {
+    .hm-title { font-size: 25px; }
+    .hm-door { min-height: 255px; }
+    .hm-door-title { font-size: 13px; }
+}
+</style>
+</head>
+<body>
+<div id="app">
+    <!-- =====================================================
+         HEADER
+         DOM order: RIGHT cluster (profile,location,a11y) FIRST,
+         BRAND second, LEFT cluster (bell) THIRD/last.
+         Real onclick/id/aria-label pulled from live GitHub source.
+         ===================================================== -->
+    <header id="topBar">
+        <!-- RIGHT (renders in rightmost grid column under RTL) -->
+        <div class="header-cluster">
+            <!-- PROFILE / ABOUT — rightmost -->
+            <button class="header-button" type="button" aria-label="אני" onclick="goTo('about')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.7-3.8 3-5.7 7-5.7s6.3 1.9 7 5.7"/></svg>
+            </button>
+            <!-- LOCATION -->
+            <button class="header-button" id="locMini" type="button" aria-label="זהה את האזור שלי לפי מיקום" onclick="detectLocation()">
+                <svg id="locIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            </button>
+            <!-- ACCESSIBILITY — hidden by default, matches real app -->
+            <button class="header-button" id="a11yMini" type="button" style="display:none" aria-label="נגישות" aria-expanded="false" aria-haspopup="dialog" onclick="toggleA11y()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="5" r="1.7"/><path d="M5 8h14"/><path d="M12 8v11"/><path d="m8 21 4-8 4 8"/></svg>
+            </button>
+        </div>
+        <!-- BRAND (center) -->
+        <div class="strux-brand">
+            <div class="strux-logo">
+                STRU<span class="orange">X</span>
+                <span class="strux-beta">BETA</span>
+            </div>
+            <div class="strux-tagline">הבית שלך מתחיל כאן</div>
+        </div>
+        <!-- LEFT (renders in leftmost grid column under RTL) -->
+        <div class="header-cluster">
+            <!-- NOTIFICATIONS — real onclick from live source -->
+            <button class="header-button" type="button" aria-label="התראות" onclick="showToast('ההתראות עדיין לא זמינות')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <span class="dot"></span>
+            </button>
+        </div>
+    </header>
+    <!-- =====================================================
+         HOME
+         ===================================================== -->
+    <main id="s-home">
+        <!-- =================================================
+             HERO
+             ================================================= -->
+        <section class="hm-hero">
+            <img class="hm-hero-image" src="/assets/strux-home-hero.webp" alt="" aria-hidden="true" onerror="this.style.display='none'">
+            <div class="hm-hero-overlay"></div>
+            <div class="hm-hero-content">
+                <div class="hm-hero-text">
+                    <h1 class="hm-title">
+                        אל תנחשו.
+                        <span class="orange">תבינו.</span>
+                    </h1>
+                    <p class="hm-sub">
+                        תמונה, תוכנית או שאלה —
+                        Strux עוזרת לכם להבין
+                        מה זה אומר.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <!-- =================================================
+             PROJECT HERO — preserved for returning users
+             ================================================= -->
+        <section id="homeProjectHero">
+            <span id="homeHeroLabel"></span>
+            <span id="homeHeroTitle"></span>
+            <span id="homeHeroStatus"></span>
+            <span id="homeHeroProgress"></span>
+            <span id="homeHeroNext"></span>
+            <span id="homeHeroUpdated"></span>
+        </section>
+        <!-- =================================================
+             STEPS — DOM order 1,2,3 (1 renders right, 3 renders left)
+             ================================================= -->
+        <section class="hm-steps">
+            <div class="hm-step">
+                <div class="hm-step-icon">
+                    <svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M8 6 9 4h6l1 2"/></svg>
+                </div>
+                <div class="hm-step-title"><span class="number">1.</span> שלחו לנו</div>
+                <div class="hm-step-desc">תמונה, תוכנית או שאלה</div>
+            </div>
+            <div class="hm-step-arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></div>
+            <div class="hm-step">
+                <div class="hm-step-icon">
+                    <svg viewBox="0 0 24 24"><path d="M11 3.2c-.9-.5-2-.6-2.9-.1-.8.4-1.3 1.1-1.5 1.9-.8.1-1.5.5-2 1.1-.6.7-.8 1.6-.6 2.5-.6.5-1 1.3-1 2.1 0 .8.4 1.6 1 2.1-.1.3-.1.6-.1.9 0 1.4 1 2.5 2.3 2.7.2.9.9 1.6 1.8 1.8.1.9.9 1.6 1.8 1.6.9 0 1.7-.7 1.8-1.6"/><path d="M13 3.2c.9-.5 2-.6 2.9-.1.8.4 1.3 1.1 1.5 1.9.8.1 1.5.5 2 1.1.6.7.8 1.6.6 2.5.6.5 1 1.3 1 2.1 0 .8-.4 1.6-1 2.1.1.3.1.6.1.9 0 1.4-1 2.5-2.3 2.7-.2.9-.9 1.6-1.8 1.8-.1.9-.9 1.6-1.8 1.6-.9 0-1.7-.7-1.8-1.6"/><path d="M12 3.2v17.6"/><path d="M9 8c.7 0 1.3.5 1.4 1.2M15 8c-.7 0-1.3.5-1.4 1.2M8 12.5c.7 0 1.3.4 1.5 1.1M16 12.5c-.7 0-1.3.4-1.5 1.1"/></svg>
+                </div>
+                <div class="hm-step-title"><span class="number">2.</span> ה-AI שלנו</div>
+                <div class="hm-step-desc">מנתח ומבין את הפרטים</div>
+            </div>
+            <div class="hm-step-arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></div>
+            <div class="hm-step">
+                <div class="hm-step-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16.5 9"/></svg>
+                </div>
+                <div class="hm-step-title"><span class="number">3.</span> מקבלים תשובה</div>
+                <div class="hm-step-desc">ברורה, מחיר מדויק והמלצות</div>
+            </div>
+        </section>
+        <!-- =================================================
+             PRIMARY TITLE
+             ================================================= -->
+        <h2 class="hm-section-title">מה תרצו לבדוק?</h2>
+        <!-- =================================================
+             PRIMARY CARDS
+             DOM order: GREEN, ORANGE, PURPLE
+             (real ids/data-cms verified live: homeCalcSub /
+              home.calc.subtitle, homePdfSub / home.pdf.subtitle;
+              camera card has data-cms but NO id in real source)
+             ================================================= -->
+        <section class="hm-doors">
+            <!-- GREEN — calc — renders RIGHT -->
+            <article class="hm-door green" onclick="goTo('calc')" role="button" tabindex="0" aria-label="בדיקה מיידית בלי התחייבות">
+                <div class="hm-door-icon">
+                    <svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M14 11h2M8 15h2M14 15h2M8 18h8"/></svg>
+                </div>
+                <h3 class="hm-door-title">כמה זה עולה?</h3>
+                <p class="hm-door-desc" id="homeCalcSub" data-cms="home.calc.subtitle">בדקו כמה עבודות וחומרים עולים</p>
+                <span class="hm-door-link">להבין מחיר</span>
+                <div class="hm-door-art">
+                    <svg viewBox="0 0 300 120"><path d="M20 100h260"/><path d="M45 100V65h35v35"/><path d="M90 100V45h35v55"/><path d="M135 100V75h35v25"/><path d="M180 100V30h35v70"/><path d="M225 100V55h35v45"/></svg>
+                </div>
+                <button class="hm-door-arrow" type="button" aria-label="בדיקת מחיר" onclick="event.stopPropagation();goTo('calc')">
+                    <svg viewBox="0 0 24 24"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg>
+                </button>
+            </article>
+            <!-- ORANGE — camera — renders CENTER -->
+            <article class="hm-door orange" onclick="openIdGate()" role="button" tabindex="0" aria-label="יש לי תמונה, ראה איך החלל יכול להיראות">
+                <div class="hm-door-icon">
+                    <svg viewBox="0 0 24 24"><path d="M4 8h4l1.5-2h5L16 8h4v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+                </div>
+                <h3 class="hm-door-title">יש לי תמונה</h3>
+                <p class="hm-door-desc" data-cms="home.camera.subtitle">צלמו חדר או חלל וראו איך זה יכול להיראות</p>
+                <span class="hm-door-link">לראות</span>
+                <div class="hm-door-art">
+                    <svg viewBox="0 0 300 120"><rect x="55" y="28" width="190" height="75" rx="5"/><path d="M55 80h190"/><path d="m78 70 35-30 28 23 25-20 45 27"/></svg>
+                </div>
+                <button class="hm-door-arrow" type="button" aria-label="העלאת תמונה" onclick="event.stopPropagation();openIdGate()">
+                    <svg viewBox="0 0 24 24"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg>
+                </button>
+            </article>
+            <!-- PURPLE — pdf — renders LEFT -->
+            <article class="hm-door purple" onclick="goTo('pdf')" role="button" tabindex="0" aria-label="יש לי תוכנית, נתח תוכנית וקבל הערכת עלות">
+                <div class="hm-door-icon">
+                    <svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v5h5"/><path d="M8.5 14h7M8.5 17h5"/></svg>
+                </div>
+                <h3 class="hm-door-title">יש לי תוכנית</h3>
+                <p class="hm-door-desc" id="homePdfSub" data-cms="home.pdf.subtitle">העלו PDF של תוכנית ונבין אותה, נחשב כמויות ונעריך עלויות</p>
+                <span class="hm-door-link">לפענח</span>
+                <div class="hm-door-art">
+                    <svg viewBox="0 0 300 120"><rect x="45" y="30" width="210" height="70"/><path d="M45 52h210"/><path d="M90 30v70"/><path d="M150 30v70"/><path d="M205 30v70"/></svg>
+                </div>
+                <button class="hm-door-arrow" type="button" aria-label="העלאת תוכנית" onclick="event.stopPropagation();goTo('pdf')">
+                    <svg viewBox="0 0 24 24"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg>
+                </button>
+            </article>
+        </section>
+        <!-- =================================================
+             SECONDARY CARDS
+             DOM order: GREEN(tender), BLUE(chat), ORANGE(supervisor)
+             real ids verified live: homeTenderSub / home.tender.subtitle,
+             homeSupervisorSub / home.supervisor.subtitle
+             ================================================= -->
+        <section class="hm-explore">
+            <!-- GREEN — tender — renders RIGHT -->
+            <article class="hm-explore-card green" onclick="openTenderGeneral()" role="button" tabindex="0" aria-label="קבל הצעות מחיר, השוו בין קבלנים וקבלו הצעות מדויקות">
+                <div class="hm-explore-icon">
+                    <svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"/><path d="M8 9h8M8 13h5M8 16h8"/></svg>
+                </div>
+                <div class="hm-explore-text">
+                    <h3 class="hm-explore-title">קבל הצעות מחיר</h3>
+                    <p class="hm-explore-desc" id="homeTenderSub" data-cms="home.tender.subtitle">השוו בין קבלנים וקבלו הצעות מדויקות</p>
+                </div>
+                <span class="hm-explore-arrow"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></span>
+            </article>
+            <!-- BLUE — chat — renders CENTER -->
+            <article class="hm-explore-card blue" onclick="openStrux(null,'chat')" role="button" tabindex="0" aria-label="שאל את AI, שאל כל שאלה על בנייה שיפוץ ומחירים">
+                <div class="hm-explore-icon">
+                    <svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg>
+                </div>
+                <div class="hm-explore-text">
+                    <h3 class="hm-explore-title">שאל את המומחה</h3>
+                    <p class="hm-explore-desc">שאלו כל שאלה וקבלו תשובה מיידית</p>
+                </div>
+                <span class="hm-explore-arrow"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></span>
+            </article>
+            <!-- ORANGE — supervisor — renders LEFT -->
+            <article class="hm-explore-card orange" onclick="openStrux()" role="button" tabindex="0" aria-label="המפקח שלי, מעקב חכם אחר הפרויקט שלך">
+                <div class="hm-explore-icon">
+                    <svg viewBox="0 0 24 24"><path d="M7 20v-7"/><path d="M17 20v-7"/><path d="M5 13h14"/><path d="M8 7h8"/><path d="M10 4h4"/><path d="M12 7v6"/></svg>
+                </div>
+                <div class="hm-explore-text">
+                    <h3 class="hm-explore-title">המפקח שלי</h3>
+                    <p class="hm-explore-desc" id="homeSupervisorSub" data-cms="home.supervisor.subtitle">מעקב, לוח זמנים ובקרת תקציב</p>
+                </div>
+                <span class="hm-explore-arrow"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></span>
+            </article>
+        </section>
+        <!-- =================================================
+             DREAM STUDIO — CTA + illustration both LEFT
+             real aria-label verified live
+             ================================================= -->
+        <section class="hm-promo" onclick="goTo('dream')" role="button" tabindex="0" aria-label="Dream Studio, חדש, העלו תמונה או תוכנית לרעיונות והדמיות">
+            <div class="hm-promo-art" aria-hidden="true">
+                <svg viewBox="0 0 300 150">
+                    <path d="M30 120 75 80 145 95 195 62 270 91 230 126 160 113 100 135z"/>
+                    <path d="M75 80V47l70 18v30M145 65l50-30v27M195 62v37"/>
+                    <path d="M95 73v42M122 80v40M158 74v39M185 66v42"/>
+                    <path d="M45 120 45 93M65 125 65 80M215 123V93M238 115V82"/>
+                </svg>
+            </div>
+            <div class="hm-promo-spark">
+                <svg viewBox="0 0 24 24"><path d="m12 2 1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5Z"/></svg>
+            </div>
+            <div class="hm-promo-content">
+                <div class="hm-promo-title-row">
+                    <span class="hm-promo-badge">חדש!</span>
+                    <h2 class="hm-promo-title">Dream Studio AI</h2>
+                </div>
+                <p class="hm-promo-sub">המחישו רעיונות, סגנונות וחלומות. תכננו, הדמיינו והפתיעו את עצמכם.</p>
+            </div>
+            <button class="hm-promo-cta" type="button" aria-label="פתיחת Dream Studio" onclick="event.stopPropagation();goTo('dream')">
+                <svg viewBox="0 0 24 24"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg>
+            </button>
+        </section>
+    </main>
+    <!-- =====================================================
+         BOTTOM NAV — DOM order home, search, about
+         ===================================================== -->
+    <nav class="bottom-nav">
+        <button class="bottom-nav-item active" id="bn-home" type="button" onclick="goTo('home')">
+            <svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg>
+            <span>בית</span>
+        </button>
+        <button class="bottom-nav-item" id="bn-search" type="button" onclick="goTo('search')">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/></svg>
+            <span>חיפוש</span>
+        </button>
+        <button class="bottom-nav-item" id="bn-about" type="button" onclick="goTo('about')">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 21c.7-4 3-6 7-6s6.3 2 7 6"/></svg>
+            <span>אני</span>
+        </button>
+    </nav>
+</div>
+</body>
+</html>
