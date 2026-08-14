@@ -106,22 +106,23 @@ img { display: block; max-width: 100%; }
     padding: 12px 8px;
 }
 .hm-step {
-    min-height: 78px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center; padding: 2px 4px;
+    min-height: 68px;
+    display: flex; align-items: center; gap: 8px;
+    text-align: right; direction: rtl; padding: 2px 2px;
 }
 .hm-step-arrow { display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.4); font-size: 22px; font-weight: 300; }
 .hm-step-icon {
-    width: 46px; height: 46px; margin-bottom: 8px;
-    border-radius: 15px;
+    width: 44px; height: 44px; flex-shrink: 0;
+    border-radius: 14px;
     background: linear-gradient(155deg, rgba(255,90,0,.16), rgba(255,255,255,.02));
     border: 1px solid rgba(255,255,255,.06);
     display: flex; align-items: center; justify-content: center;
 }
-.hm-step-icon svg { width: 22px; height: 22px; stroke: var(--orange); fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
-.hm-step-title { font-size: 11px; line-height: 1.3; font-weight: 800; white-space: nowrap; }
+.hm-step-icon svg { width: 21px; height: 21px; stroke: var(--orange); fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.hm-step-text { min-width: 0; }
+.hm-step-title { font-size: 11px; line-height: 1.3; font-weight: 800; }
 .hm-step-title .number { color: var(--orange); }
-.hm-step-desc { margin-top: 4px; color: #888c90; font-size: 9px; line-height: 1.35; }
+.hm-step-desc { margin-top: 3px; color: #888c90; font-size: 9px; line-height: 1.3; }
 .hm-section-title { margin: 26px 4px 12px; font-size: 21px; line-height: 1.2; font-weight: 800; text-align: right; }
 .hm-section-title::after { content: ""; display: block; width: 43px; height: 3px; margin-top: 9px; background: var(--orange); }
 .hm-doors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; direction: rtl; }
@@ -292,24 +293,30 @@ img { display: block; max-width: 100%; }
                 <div class="hm-step-icon">
                     <svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M8 6 9 4h6l1 2"/></svg>
                 </div>
-                <div class="hm-step-title"><span class="number">1.</span> שלחו לנו</div>
-                <div class="hm-step-desc">תמונה, תוכנית או שאלה</div>
+                <div class="hm-step-text">
+                    <div class="hm-step-title"><span class="number">1.</span> שלחו לנו</div>
+                    <div class="hm-step-desc">תמונה, תוכנית או שאלה</div>
+                </div>
             </div>
             <div class="hm-step-arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></div>
             <div class="hm-step">
                 <div class="hm-step-icon">
                     <svg viewBox="0 0 24 24"><path d="M11 3.2c-.9-.5-2-.6-2.9-.1-.8.4-1.3 1.1-1.5 1.9-.8.1-1.5.5-2 1.1-.6.7-.8 1.6-.6 2.5-.6.5-1 1.3-1 2.1 0 .8.4 1.6 1 2.1-.1.3-.1.6-.1.9 0 1.4 1 2.5 2.3 2.7.2.9.9 1.6 1.8 1.8.1.9.9 1.6 1.8 1.6.9 0 1.7-.7 1.8-1.6"/><path d="M13 3.2c.9-.5 2-.6 2.9-.1.8.4 1.3 1.1 1.5 1.9.8.1 1.5.5 2 1.1.6.7.8 1.6.6 2.5.6.5 1 1.3 1 2.1 0 .8-.4 1.6-1 2.1.1.3.1.6.1.9 0 1.4-1 2.5-2.3 2.7-.2.9-.9 1.6-1.8 1.8-.1.9-.9 1.6-1.8 1.6-.9 0-1.7-.7-1.8-1.6"/><path d="M12 3.2v17.6"/><path d="M9 8c.7 0 1.3.5 1.4 1.2M15 8c-.7 0-1.3.5-1.4 1.2M8 12.5c.7 0 1.3.4 1.5 1.1M16 12.5c-.7 0-1.3.4-1.5 1.1"/></svg>
                 </div>
-                <div class="hm-step-title"><span class="number">2.</span> ה-AI שלנו</div>
-                <div class="hm-step-desc">מנתח ומבין את הפרטים</div>
+                <div class="hm-step-text">
+                    <div class="hm-step-title"><span class="number">2.</span> ה-AI שלנו</div>
+                    <div class="hm-step-desc">מנתח ומבין את הפרטים</div>
+                </div>
             </div>
             <div class="hm-step-arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></div>
             <div class="hm-step">
                 <div class="hm-step-icon">
                     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16.5 9"/></svg>
                 </div>
-                <div class="hm-step-title"><span class="number">3.</span> מקבלים תשובה</div>
-                <div class="hm-step-desc">ברורה, מחיר מדויק והמלצות</div>
+                <div class="hm-step-text">
+                    <div class="hm-step-title"><span class="number">3.</span> מקבלים תשובה</div>
+                    <div class="hm-step-desc">ברורה, מחיר מדויק והמלצות</div>
+                </div>
             </div>
         </section>
         <h2 class="hm-section-title">מה תרצו לבדוק?</h2>
