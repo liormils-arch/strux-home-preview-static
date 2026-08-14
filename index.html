@@ -6,6 +6,13 @@
 <meta name="theme-color" content="#050607">
 <title>STRUX</title>
 <style>
+/* =========================================================
+   STRUX HOME — v4 FINAL
+   Base structure: user-provided file (best DOM-order fidelity)
+   Fixes applied against reference crops + verified real source
+   (real onclick/id/data-cms/aria-label values pulled live from
+   GitHub public/index.html — see notes at bottom of chat reply)
+   ========================================================= */
 :root {
     --bg: #050607;
     --text: #f4f4f4;
@@ -31,6 +38,11 @@ img { display: block; max-width: 100%; }
     position: relative;
     background: radial-gradient(circle at 50% 0%, rgba(255,90,0,.035), transparent 35%), var(--bg);
 }
+/* =========================================================
+   HEADER — DOM order: RIGHT cluster (profile,location,a11y) FIRST,
+   BRAND second, LEFT cluster (bell) LAST.
+   RTL grid places DOM-first in the rightmost column.
+   ========================================================= */
 #topBar {
     width: 100%;
     min-height: 84px;
@@ -74,13 +86,20 @@ img { display: block; max-width: 100%; }
     margin-top: 7px; direction: rtl;
     color: #9a9da1; font-size: 13px; font-weight: 400;
 }
+/* =========================================================
+   HOME
+   ========================================================= */
 #s-home { width: 100%; padding: 0 12px 90px; }
+/* =========================================================
+   HERO — height locked 240px per prior approved decision
+   ========================================================= */
 .hm-hero {
     position: relative; width: 100%; height: 240px; min-height: 240px;
     margin: 15px 0 0; overflow: hidden; border-radius: 24px;
     border: 1px solid rgba(255,255,255,.075);
     background: linear-gradient(135deg, rgba(255,255,255,.035), rgba(255,255,255,.008));
 }
+/* LOCAL ASSET SLOT — do not replace with external image. */
 .hm-hero-image {
     position: absolute; inset: 0; width: 100%; height: 100%;
     object-fit: cover; opacity: .62; z-index: 0;
@@ -94,8 +113,14 @@ img { display: block; max-width: 100%; }
 .hm-title { margin: 0; font-size: 29px; line-height: 1.15; font-weight: 850; letter-spacing: -.8px; }
 .hm-title .orange { display: block; color: var(--orange); margin-top: 4px; }
 .hm-sub { margin: 12px 0 0; color: #c4c6c8; font-size: 14px; line-height: 1.55; }
+/* =========================================================
+   PROJECT HERO — preserved functional structure for returning users
+   ========================================================= */
 #homeProjectHero { display: none; }
 #homeHeroLabel, #homeHeroTitle, #homeHeroStatus, #homeHeroProgress, #homeHeroNext, #homeHeroUpdated { display: none; }
+/* =========================================================
+   STEPS
+   ========================================================= */
 .hm-steps {
     width: 100%; margin: 14px 0 0;
     display: grid; grid-template-columns: 1fr 20px 1fr 20px 1fr;
@@ -118,13 +143,20 @@ img { display: block; max-width: 100%; }
     border: 1px solid rgba(255,255,255,.06);
     display: flex; align-items: center; justify-content: center;
 }
-.hm-step-icon svg { width: 21px; height: 21px; stroke: var(--orange); fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.hm-step-icon svg { width: 26px; height: 26px; stroke: var(--orange); fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
 .hm-step-text { min-width: 0; }
-.hm-step-title { font-size: 11px; line-height: 1.3; font-weight: 800; }
+.hm-step-title { font-size: 10px; line-height: 1.3; font-weight: 800; white-space: nowrap; }
 .hm-step-title .number { color: var(--orange); }
 .hm-step-desc { margin-top: 3px; color: #888c90; font-size: 9px; line-height: 1.3; }
+/* =========================================================
+   SECTION TITLE
+   ========================================================= */
 .hm-section-title { margin: 26px 4px 12px; font-size: 21px; line-height: 1.2; font-weight: 800; text-align: right; }
 .hm-section-title::after { content: ""; display: block; width: 43px; height: 3px; margin-top: 9px; background: var(--orange); }
+/* =========================================================
+   PRIMARY CARDS
+   DOM ORDER: GREEN -> ORANGE -> PURPLE (RTL visual: PURPLE|ORANGE|GREEN)
+   ========================================================= */
 .hm-doors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; direction: rtl; }
 .hm-door {
     min-width: 0; min-height: 275px; padding: 15px 10px 14px;
@@ -163,6 +195,10 @@ img { display: block; max-width: 100%; }
 .hm-door.orange .hm-door-arrow { background: var(--orange); }
 .hm-door.purple .hm-door-arrow { background: var(--purple); }
 .hm-door-arrow svg { width: 19px; height: 19px; stroke: currentColor; fill: none; stroke-width: 2.2; }
+/* =========================================================
+   SECONDARY CARDS
+   DOM ORDER: GREEN -> BLUE -> ORANGE (RTL visual: ORANGE|BLUE|GREEN)
+   ========================================================= */
 .hm-explore { margin-top: 18px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; direction: rtl; }
 .hm-explore-card {
     min-height: 138px; padding: 14px 10px 28px; border: 1px solid rgba(255,255,255,.16);
@@ -181,6 +217,9 @@ img { display: block; max-width: 100%; }
 .hm-explore-title { margin: 0; color: #f0f0f0; font-size: 13px; font-weight: 800; line-height: 1.3; }
 .hm-explore-desc { margin: 5px 0 0; color: #85898d; font-size: 9.5px; line-height: 1.45; }
 .hm-explore-arrow { position: absolute; left: 10px; bottom: 10px; font-size: 18px; color: currentColor; }
+/* =========================================================
+   DREAM STUDIO — CTA + illustration BOTH on the left
+   ========================================================= */
 .hm-promo {
     width: 100%; min-height: 130px; margin-top: 18px; border-radius: 22px;
     border: 1px solid rgba(255,90,0,.55); background: #10171d; position: relative; overflow: hidden;
@@ -212,6 +251,9 @@ img { display: block; max-width: 100%; }
 .hm-promo-badge { padding: 4px 8px; border-radius: 7px; background: var(--orange); color: #fff; font-size: 10px; font-weight: 800; line-height: 1; }
 .hm-promo-title { margin: 0; font-size: 18px; font-weight: 850; }
 .hm-promo-sub { margin: 8px 0 0; color: #b9bbbe; font-size: 11px; line-height: 1.5; }
+/* =========================================================
+   BOTTOM NAV — DOM order home,search,about (home right, active)
+   ========================================================= */
 .bottom-nav {
     position: fixed; z-index: 100; left: 50%; bottom: 0;
     width: min(100%, 430px); transform: translateX(-50%); height: 68px;
@@ -236,18 +278,29 @@ img { display: block; max-width: 100%; }
 </head>
 <body>
 <div id="app">
+    <!-- =====================================================
+         HEADER
+         DOM order: RIGHT cluster (profile,location,a11y) FIRST,
+         BRAND second, LEFT cluster (bell) THIRD/last.
+         Real onclick/id/aria-label pulled from live GitHub source.
+         ===================================================== -->
     <header id="topBar">
+        <!-- RIGHT (renders in rightmost grid column under RTL) -->
         <div class="header-cluster">
+            <!-- PROFILE / ABOUT — rightmost -->
             <button class="header-button" type="button" aria-label="אני" onclick="goTo('about')">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.7-3.8 3-5.7 7-5.7s6.3 1.9 7 5.7"/></svg>
             </button>
+            <!-- LOCATION -->
             <button class="header-button" id="locMini" type="button" aria-label="זהה את האזור שלי לפי מיקום" onclick="detectLocation()">
                 <svg id="locIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
             </button>
+            <!-- ACCESSIBILITY — hidden by default, matches real app -->
             <button class="header-button" id="a11yMini" type="button" style="display:none" aria-label="נגישות" aria-expanded="false" aria-haspopup="dialog" onclick="toggleA11y()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="5" r="1.7"/><path d="M5 8h14"/><path d="M12 8v11"/><path d="m8 21 4-8 4 8"/></svg>
             </button>
         </div>
+        <!-- BRAND (center) -->
         <div class="strux-brand">
             <div class="strux-logo">
                 STRU<span class="orange">X</span>
@@ -255,14 +308,22 @@ img { display: block; max-width: 100%; }
             </div>
             <div class="strux-tagline">הבית שלך מתחיל כאן</div>
         </div>
+        <!-- LEFT (renders in leftmost grid column under RTL) -->
         <div class="header-cluster">
+            <!-- NOTIFICATIONS — real onclick from live source -->
             <button class="header-button" type="button" aria-label="התראות" onclick="showToast('ההתראות עדיין לא זמינות')">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
                 <span class="dot"></span>
             </button>
         </div>
     </header>
+    <!-- =====================================================
+         HOME
+         ===================================================== -->
     <main id="s-home">
+        <!-- =================================================
+             HERO
+             ================================================= -->
         <section class="hm-hero">
             <img class="hm-hero-image" src="/assets/strux-home-hero.webp" alt="" aria-hidden="true" onerror="this.style.display='none'">
             <div class="hm-hero-overlay"></div>
@@ -280,6 +341,9 @@ img { display: block; max-width: 100%; }
                 </div>
             </div>
         </section>
+        <!-- =================================================
+             PROJECT HERO — preserved for returning users
+             ================================================= -->
         <section id="homeProjectHero">
             <span id="homeHeroLabel"></span>
             <span id="homeHeroTitle"></span>
@@ -288,39 +352,53 @@ img { display: block; max-width: 100%; }
             <span id="homeHeroNext"></span>
             <span id="homeHeroUpdated"></span>
         </section>
+        <!-- =================================================
+             STEPS — DOM order 1,2,3 (1 renders right, 3 renders left)
+             ================================================= -->
         <section class="hm-steps">
             <div class="hm-step">
-                <div class="hm-step-icon">
-                    <svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M8 6 9 4h6l1 2"/></svg>
-                </div>
                 <div class="hm-step-text">
                     <div class="hm-step-title"><span class="number">1.</span> שלחו לנו</div>
                     <div class="hm-step-desc">תמונה, תוכנית או שאלה</div>
                 </div>
+                <div class="hm-step-icon">
+                    <svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M8 6 9 4h6l1 2"/></svg>
+                </div>
             </div>
             <div class="hm-step-arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></div>
             <div class="hm-step">
-                <div class="hm-step-icon">
-                    <svg viewBox="0 0 24 24"><path d="M11 3.2c-.9-.5-2-.6-2.9-.1-.8.4-1.3 1.1-1.5 1.9-.8.1-1.5.5-2 1.1-.6.7-.8 1.6-.6 2.5-.6.5-1 1.3-1 2.1 0 .8.4 1.6 1 2.1-.1.3-.1.6-.1.9 0 1.4 1 2.5 2.3 2.7.2.9.9 1.6 1.8 1.8.1.9.9 1.6 1.8 1.6.9 0 1.7-.7 1.8-1.6"/><path d="M13 3.2c.9-.5 2-.6 2.9-.1.8.4 1.3 1.1 1.5 1.9.8.1 1.5.5 2 1.1.6.7.8 1.6.6 2.5.6.5 1 1.3 1 2.1 0 .8-.4 1.6-1 2.1.1.3.1.6.1.9 0 1.4-1 2.5-2.3 2.7-.2.9-.9 1.6-1.8 1.8-.1.9-.9 1.6-1.8 1.6-.9 0-1.7-.7-1.8-1.6"/><path d="M12 3.2v17.6"/><path d="M9 8c.7 0 1.3.5 1.4 1.2M15 8c-.7 0-1.3.5-1.4 1.2M8 12.5c.7 0 1.3.4 1.5 1.1M16 12.5c-.7 0-1.3.4-1.5 1.1"/></svg>
-                </div>
                 <div class="hm-step-text">
                     <div class="hm-step-title"><span class="number">2.</span> ה-AI שלנו</div>
                     <div class="hm-step-desc">מנתח ומבין את הפרטים</div>
                 </div>
+                <div class="hm-step-icon">
+                    <svg viewBox="0 0 24 24"><path d="M11 3.2c-.9-.5-2-.6-2.9-.1-.8.4-1.3 1.1-1.5 1.9-.8.1-1.5.5-2 1.1-.6.7-.8 1.6-.6 2.5-.6.5-1 1.3-1 2.1 0 .8.4 1.6 1 2.1-.1.3-.1.6-.1.9 0 1.4 1 2.5 2.3 2.7.2.9.9 1.6 1.8 1.8.1.9.9 1.6 1.8 1.6.9 0 1.7-.7 1.8-1.6"/><path d="M13 3.2c.9-.5 2-.6 2.9-.1.8.4 1.3 1.1 1.5 1.9.8.1 1.5.5 2 1.1.6.7.8 1.6.6 2.5.6.5 1 1.3 1 2.1 0 .8-.4 1.6-1 2.1.1.3.1.6.1.9 0 1.4-1 2.5-2.3 2.7-.2.9-.9 1.6-1.8 1.8-.1.9-.9 1.6-1.8 1.6-.9 0-1.7-.7-1.8-1.6"/><path d="M12 3.2v17.6"/><path d="M9 8c.7 0 1.3.5 1.4 1.2M15 8c-.7 0-1.3.5-1.4 1.2M8 12.5c.7 0 1.3.4 1.5 1.1M16 12.5c-.7 0-1.3.4-1.5 1.1"/></svg>
+                </div>
             </div>
             <div class="hm-step-arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></div>
             <div class="hm-step">
-                <div class="hm-step-icon">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16.5 9"/></svg>
-                </div>
                 <div class="hm-step-text">
                     <div class="hm-step-title"><span class="number">3.</span> מקבלים תשובה</div>
                     <div class="hm-step-desc">ברורה, מחיר מדויק והמלצות</div>
                 </div>
+                <div class="hm-step-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16.5 9"/></svg>
+                </div>
             </div>
         </section>
+        <!-- =================================================
+             PRIMARY TITLE
+             ================================================= -->
         <h2 class="hm-section-title">מה תרצו לבדוק?</h2>
+        <!-- =================================================
+             PRIMARY CARDS
+             DOM order: GREEN, ORANGE, PURPLE
+             (real ids/data-cms verified live: homeCalcSub /
+              home.calc.subtitle, homePdfSub / home.pdf.subtitle;
+              camera card has data-cms but NO id in real source)
+             ================================================= -->
         <section class="hm-doors">
+            <!-- GREEN — calc — renders RIGHT -->
             <article class="hm-door green" onclick="goTo('calc')" role="button" tabindex="0" aria-label="בדיקה מיידית בלי התחייבות">
                 <div class="hm-door-icon">
                     <svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M14 11h2M8 15h2M14 15h2M8 18h8"/></svg>
@@ -335,6 +413,7 @@ img { display: block; max-width: 100%; }
                     <svg viewBox="0 0 24 24"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg>
                 </button>
             </article>
+            <!-- ORANGE — camera — renders CENTER -->
             <article class="hm-door orange" onclick="openIdGate()" role="button" tabindex="0" aria-label="יש לי תמונה, ראה איך החלל יכול להיראות">
                 <div class="hm-door-icon">
                     <svg viewBox="0 0 24 24"><path d="M4 8h4l1.5-2h5L16 8h4v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
@@ -349,6 +428,7 @@ img { display: block; max-width: 100%; }
                     <svg viewBox="0 0 24 24"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg>
                 </button>
             </article>
+            <!-- PURPLE — pdf — renders LEFT -->
             <article class="hm-door purple" onclick="goTo('pdf')" role="button" tabindex="0" aria-label="יש לי תוכנית, נתח תוכנית וקבל הערכת עלות">
                 <div class="hm-door-icon">
                     <svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v5h5"/><path d="M8.5 14h7M8.5 17h5"/></svg>
@@ -364,7 +444,14 @@ img { display: block; max-width: 100%; }
                 </button>
             </article>
         </section>
+        <!-- =================================================
+             SECONDARY CARDS
+             DOM order: GREEN(tender), BLUE(chat), ORANGE(supervisor)
+             real ids verified live: homeTenderSub / home.tender.subtitle,
+             homeSupervisorSub / home.supervisor.subtitle
+             ================================================= -->
         <section class="hm-explore">
+            <!-- GREEN — tender — renders RIGHT -->
             <article class="hm-explore-card green" onclick="openTenderGeneral()" role="button" tabindex="0" aria-label="קבל הצעות מחיר, השוו בין קבלנים וקבלו הצעות מדויקות">
                 <div class="hm-explore-icon">
                     <svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"/><path d="M8 9h8M8 13h5M8 16h8"/></svg>
@@ -373,8 +460,9 @@ img { display: block; max-width: 100%; }
                     <h3 class="hm-explore-title">קבל הצעות מחיר</h3>
                     <p class="hm-explore-desc" id="homeTenderSub" data-cms="home.tender.subtitle">השוו בין קבלנים וקבלו הצעות מדויקות</p>
                 </div>
-                <span class="hm-explore-arrow"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+                <span class="hm-explore-arrow"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></span>
             </article>
+            <!-- BLUE — chat — renders CENTER -->
             <article class="hm-explore-card blue" onclick="openStrux(null,'chat')" role="button" tabindex="0" aria-label="שאל את AI, שאל כל שאלה על בנייה שיפוץ ומחירים">
                 <div class="hm-explore-icon">
                     <svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg>
@@ -383,8 +471,9 @@ img { display: block; max-width: 100%; }
                     <h3 class="hm-explore-title">שאל את המומחה</h3>
                     <p class="hm-explore-desc">שאלו כל שאלה וקבלו תשובה מיידית</p>
                 </div>
-                <span class="hm-explore-arrow"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+                <span class="hm-explore-arrow"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></span>
             </article>
+            <!-- ORANGE — supervisor — renders LEFT -->
             <article class="hm-explore-card orange" onclick="openStrux()" role="button" tabindex="0" aria-label="המפקח שלי, מעקב חכם אחר הפרויקט שלך">
                 <div class="hm-explore-icon">
                     <svg viewBox="0 0 24 24"><path d="M7 20v-7"/><path d="M17 20v-7"/><path d="M5 13h14"/><path d="M8 7h8"/><path d="M10 4h4"/><path d="M12 7v6"/></svg>
@@ -393,9 +482,13 @@ img { display: block; max-width: 100%; }
                     <h3 class="hm-explore-title">המפקח שלי</h3>
                     <p class="hm-explore-desc" id="homeSupervisorSub" data-cms="home.supervisor.subtitle">מעקב, לוח זמנים ובקרת תקציב</p>
                 </div>
-                <span class="hm-explore-arrow"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+                <span class="hm-explore-arrow"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></span>
             </article>
         </section>
+        <!-- =================================================
+             DREAM STUDIO — CTA + illustration both LEFT
+             real aria-label verified live
+             ================================================= -->
         <section class="hm-promo" onclick="goTo('dream')" role="button" tabindex="0" aria-label="Dream Studio, חדש, העלו תמונה או תוכנית לרעיונות והדמיות">
             <div class="hm-promo-art" aria-hidden="true">
                 <svg viewBox="0 0 300 150">
@@ -420,6 +513,9 @@ img { display: block; max-width: 100%; }
             </button>
         </section>
     </main>
+    <!-- =====================================================
+         BOTTOM NAV — DOM order home, search, about
+         ===================================================== -->
     <nav class="bottom-nav">
         <button class="bottom-nav-item active" id="bn-home" type="button" onclick="goTo('home')">
             <svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg>
