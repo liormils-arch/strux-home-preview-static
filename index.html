@@ -226,9 +226,9 @@ img { display: block; max-width: 100%; }
    DREAM STUDIO — CTA + illustration BOTH on the left
    ========================================================= */
 .hm-promo {
-    width: 100%; min-height: 130px; margin-top: 18px; border-radius: 22px;
+    width: 100%; min-height: 100px; margin-top: 18px; border-radius: 22px;
     border: 1px solid rgba(255,90,0,.55); background: #10171d; position: relative; overflow: hidden;
-    display: flex; align-items: center; padding: 18px 18px;
+    display: flex; align-items: center; padding: 14px 14px;
 }
 .hm-promo-art {
     position: absolute; z-index: 1; left: -6px; bottom: -10px; width: 168px; height: 110px;
@@ -255,7 +255,13 @@ img { display: block; max-width: 100%; }
 .hm-promo-title-row { display: flex; align-items: center; justify-content: flex-start; gap: 7px; direction: rtl; }
 .hm-promo-badge { padding: 4px 8px; border-radius: 7px; background: var(--orange); color: #fff; font-size: 10px; font-weight: 800; line-height: 1; }
 .hm-promo-title { margin: 0; font-size: 18px; font-weight: 850; }
-.hm-promo-sub { margin: 8px 0 0; color: #b9bbbe; font-size: 11px; line-height: 1.5; }
+.hm-promo-sub { margin: 6px 0 0; color: #b9bbbe; font-size: 10.5px; line-height: 1.45; }
+.hm-promo-link {
+    display: inline-flex; align-items: center; gap: 5px; margin-top: 7px;
+    font-size: 10.5px; font-weight: 700; color: var(--orange);
+    text-decoration: underline; text-underline-offset: 3px;
+}
+.hm-promo-link svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
 /* =========================================================
    BOTTOM NAV — DOM order home,search,about (home right, active)
    ========================================================= */
@@ -522,7 +528,11 @@ img { display: block; max-width: 100%; }
                     <span class="hm-promo-badge">חדש!</span>
                     <h2 class="hm-promo-title">Dream Studio AI</h2>
                 </div>
-                <p class="hm-promo-sub">המחישו רעיונות, סגנונות וחלומות. תכננו, הדמיינו והפתיעו את עצמכם.</p>
+                <p class="hm-promo-sub">מתמונה או תוכנית — לרעיונות, הדמיות ותכנון שמדמיינים את עצמכם.</p>
+                <a class="hm-promo-link" href="javascript:void(0)" onclick="event.stopPropagation();goTo('dream')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18"/><path d="m7 8-4 4 4 4"/><path d="m17 8 4 4-4 4"/></svg>
+                    לגלות איך זה עובד
+                </a>
             </div>
             <button class="hm-promo-cta" type="button" aria-label="פתיחת Dream Studio" onclick="event.stopPropagation();goTo('dream')">
                 <svg viewBox="0 0 24 24"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg>
