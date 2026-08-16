@@ -200,26 +200,28 @@ img { display: block; max-width: 100%; }
 .hm-door-arrow svg { width: 19px; height: 19px; stroke: currentColor; fill: none; stroke-width: 2.2; }
 /* =========================================================
    SECONDARY CARDS
-   DOM ORDER: GREEN -> BLUE -> ORANGE (RTL visual: ORANGE|BLUE|GREEN)
+   DOM ORDER: PURPLE -> GREEN -> ORANGE -> BLUE (RTL visual: BLUE|ORANGE|GREEN|PURPLE)
    ========================================================= */
-.hm-explore { margin-top: 18px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; direction: rtl; }
+.hm-explore { margin-top: 14px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; direction: rtl; }
 .hm-explore-card {
-    min-height: 138px; padding: 14px 10px 28px; border: 1px solid rgba(255,255,255,.16);
-    border-radius: 18px; background: #10171d; position: relative; overflow: hidden; text-align: right;
-    display: flex; align-items: flex-start; gap: 8px; direction: rtl;
+    min-height: 0; padding: 12px 5px 22px; border: 1px solid rgba(255,255,255,.16);
+    border-radius: 16px; background: #10171d; position: relative; overflow: hidden; text-align: center;
+    display: flex; flex-direction: column; align-items: center; direction: rtl;
 }
 .hm-explore-icon {
-    width: 36px; height: 36px; border-radius: 50%; border: 1px solid currentColor;
+    width: auto; height: auto; margin-bottom: 6px;
     display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: transparent;
 }
 .hm-explore-text { min-width: 0; }
-.hm-explore-icon svg { width: 19px; height: 19px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.hm-explore-icon svg { width: 30px; height: 30px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .hm-explore-card.green { color: var(--green); }
 .hm-explore-card.blue { color: var(--blue); }
 .hm-explore-card.orange { color: var(--orange); }
-.hm-explore-title { margin: 0; color: #f0f0f0; font-size: 13px; font-weight: 800; line-height: 1.3; }
-.hm-explore-desc { margin: 5px 0 0; color: #85898d; font-size: 9.5px; line-height: 1.45; }
-.hm-explore-arrow { position: absolute; left: 10px; bottom: 10px; font-size: 18px; color: currentColor; }
+.hm-explore-card.purple { color: var(--purple); }
+.hm-explore-title { margin: 0; color: #f0f0f0; font-size: 11px; font-weight: 800; line-height: 1.25; }
+.hm-explore-desc { margin: 4px 0 0; color: #85898d; font-size: 8.3px; line-height: 1.4; }
+.hm-explore-arrow { position: absolute; left: 8px; bottom: 8px; color: currentColor; display: flex; }
+.hm-explore-arrow svg { width: 15px; height: 15px; }
 /* =========================================================
    DREAM STUDIO — CTA + illustration BOTH on the left
    ========================================================= */
@@ -449,43 +451,54 @@ img { display: block; max-width: 100%; }
         </section>
         <!-- =================================================
              SECONDARY CARDS
-             DOM order: GREEN(tender), BLUE(chat), ORANGE(supervisor)
+             DOM order: PURPLE(check offer), GREEN(find pros), ORANGE(supervisor), BLUE(ask AI)
              real ids verified live: homeTenderSub / home.tender.subtitle,
              homeSupervisorSub / home.supervisor.subtitle
              ================================================= -->
         <section class="hm-explore">
-            <!-- GREEN — tender — renders RIGHT -->
-            <article class="hm-explore-card green" onclick="openTenderGeneral()" role="button" tabindex="0" aria-label="קבל הצעות מחיר, השוו בין קבלנים וקבלו הצעות מדויקות">
+            <!-- PURPLE — check received offer — renders RIGHT -->
+            <article class="hm-explore-card purple" onclick="openTenderGeneral()" role="button" tabindex="0" aria-label="בדוק הצעה שקיבלת, ניתוח הצעות מחיר וידע אם הן הוגנות">
                 <div class="hm-explore-icon">
-                    <svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"/><path d="M8 9h8M8 13h5M8 16h8"/></svg>
+                    <svg viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="17" rx="2"/><rect x="9" y="2.5" width="6" height="3" rx="1"/><path d="M8.5 13l2 2 4-4"/></svg>
                 </div>
                 <div class="hm-explore-text">
-                    <h3 class="hm-explore-title">קבל הצעות מחיר</h3>
-                    <p class="hm-explore-desc" id="homeTenderSub" data-cms="home.tender.subtitle">השוו בין קבלנים וקבלו הצעות מדויקות</p>
+                    <h3 class="hm-explore-title">בדוק הצעה שקיבלת</h3>
+                    <p class="hm-explore-desc">ניתוח הצעות מחיר, וידע אם הן הוגנות</p>
                 </div>
-                <span class="hm-explore-arrow"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></span>
+                <span class="hm-explore-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H6"/><path d="M11 5l-6 7 6 7"/></svg></span>
             </article>
-            <!-- BLUE — chat — renders CENTER -->
-            <article class="hm-explore-card blue" onclick="openStrux(null,'chat')" role="button" tabindex="0" aria-label="שאל את AI, שאל כל שאלה על בנייה שיפוץ ומחירים">
+            <!-- GREEN — find professionals — renders CENTER-RIGHT -->
+            <article class="hm-explore-card green" onclick="openTenderGeneral()" role="button" tabindex="0" aria-label="מצא בעלי מקצוע, חיבור לקבלנים וספקים אמינים באזור שלך">
                 <div class="hm-explore-icon">
-                    <svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg>
+                    <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 20c0-3.3 2.5-6 5.5-6s5.5 2.7 5.5 6"/><circle cx="17" cy="7" r="2.3"/><path d="M15 20c.1-2.9 1.9-5.2 4.5-5.2"/></svg>
                 </div>
                 <div class="hm-explore-text">
-                    <h3 class="hm-explore-title">שאל את המומחה</h3>
-                    <p class="hm-explore-desc">שאלו כל שאלה וקבלו תשובה מיידית</p>
+                    <h3 class="hm-explore-title">מצא בעלי מקצוע</h3>
+                    <p class="hm-explore-desc" id="homeTenderSub" data-cms="home.tender.subtitle">חיבור לקבלנים וספקים אמינים באזור שלך</p>
                 </div>
-                <span class="hm-explore-arrow"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></span>
+                <span class="hm-explore-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H6"/><path d="M11 5l-6 7 6 7"/></svg></span>
             </article>
-            <!-- ORANGE — supervisor — renders LEFT -->
+            <!-- ORANGE — supervisor — renders CENTER-LEFT -->
             <article class="hm-explore-card orange" onclick="openStrux()" role="button" tabindex="0" aria-label="המפקח שלי, מעקב חכם אחר הפרויקט שלך">
                 <div class="hm-explore-icon">
-                    <svg viewBox="0 0 24 24"><path d="M7 20v-7"/><path d="M17 20v-7"/><path d="M5 13h14"/><path d="M8 7h8"/><path d="M10 4h4"/><path d="M12 7v6"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M6 10.5a6 6 0 0 1 12 0"/><path d="M4 10.5h16"/><rect x="10" y="6" width="4" height="3" rx="1"/><path d="M7 20a5 5 0 0 1 10 0"/><circle cx="12" cy="15.3" r="2.1"/></svg>
                 </div>
                 <div class="hm-explore-text">
                     <h3 class="hm-explore-title">המפקח שלי</h3>
                     <p class="hm-explore-desc" id="homeSupervisorSub" data-cms="home.supervisor.subtitle">מעקב, לוח זמנים ובקרת תקציב</p>
                 </div>
-                <span class="hm-explore-arrow"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></span>
+                <span class="hm-explore-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H6"/><path d="M11 5l-6 7 6 7"/></svg></span>
+            </article>
+            <!-- BLUE — ask AI — renders LEFT -->
+            <article class="hm-explore-card blue" onclick="openStrux(null,'chat')" role="button" tabindex="0" aria-label="שאל את ה-AI, שאל כל שאלה על בנייה שיפוץ ומחירים">
+                <div class="hm-explore-icon">
+                    <svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/><circle cx="9" cy="10.3" r=".9" fill="currentColor" stroke="none"/><circle cx="12" cy="10.3" r=".9" fill="currentColor" stroke="none"/><circle cx="15" cy="10.3" r=".9" fill="currentColor" stroke="none"/></svg>
+                </div>
+                <div class="hm-explore-text">
+                    <h3 class="hm-explore-title">שאל את ה-AI</h3>
+                    <p class="hm-explore-desc">שאל כל שאלה על בנייה, שיפוץ ומחירים</p>
+                </div>
+                <span class="hm-explore-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H6"/><path d="M11 5l-6 7 6 7"/></svg></span>
             </article>
         </section>
         <!-- =================================================
