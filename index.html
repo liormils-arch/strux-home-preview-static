@@ -226,9 +226,9 @@ img { display: block; max-width: 100%; }
    DREAM STUDIO — icon+title top-left, description + CTA line below
    ========================================================= */
 .hm-promo {
-    width: 100%; min-height: 0; margin-top: 18px; border-radius: 22px;
+    width: 100%; min-height: 0; margin-top: 18px; border-radius: 20px;
     border: 1px solid rgba(168,120,255,.45); background: #120f1c; position: relative; overflow: hidden;
-    display: flex; align-items: center; gap: 12px; padding: 16px 148px 16px 16px;
+    display: flex; align-items: center; gap: 10px; padding: 11px 140px 11px 14px;
     direction: ltr;
     box-shadow: inset 0 0 40px rgba(124,58,237,.08);
 }
@@ -240,19 +240,20 @@ img { display: block; max-width: 100%; }
 .hm-promo-illustration::after { content: ''; position: absolute; inset: 0; border-radius: 16px; background: linear-gradient(120deg, rgba(139,92,246,.45) 0%, rgba(124,58,237,.18) 45%, transparent 75%); transform: rotate(7deg); pointer-events: none; mix-blend-mode: overlay; }
 .hm-promo-icon {
     position: relative; z-index: 2;
-    width: 46px; height: 46px; border-radius: 13px;
+    width: 58px; height: 58px; border-radius: 15px;
     background: linear-gradient(160deg, #2c2150, #1a1430); color: #fff;
     border: 1px solid rgba(180,140,255,.5);
+    box-shadow: 0 0 0 1px rgba(180,140,255,.25), 0 0 16px rgba(139,92,246,.45);
     display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
 .hm-promo-icon svg { width: 22px; height: 22px; stroke: #e4d9ff; fill: none; }
 .hm-promo-content { position: relative; z-index: 2; flex: 1; min-width: 0; }
 .hm-promo-title-row { display: flex; align-items: center; gap: 7px; }
 .hm-promo-badge { padding: 4px 8px; border-radius: 7px; background: var(--orange); color: #fff; font-size: 10px; font-weight: 800; line-height: 1; }
-.hm-promo-title { margin: 0; font-size: 18px; font-weight: 850; color: #fff; }
-.hm-promo-sub { margin: 8px 0 0; color: #b9bbbe; font-size: 10.5px; line-height: 1.45; text-align: right; direction: rtl; }
+.hm-promo-title { margin: 0; font-size: 16px; font-weight: 850; color: #fff; white-space: nowrap; }
+.hm-promo-sub { margin: 6px 0 0; color: #b9bbbe; font-size: 10.5px; line-height: 1.4; text-align: right; direction: rtl; text-wrap: balance; }
 .hm-promo-link {
-    display: inline-flex; align-items: center; gap: 4px; margin-top: 14px;
+    display: inline-flex; align-items: center; gap: 4px; margin-top: 9px;
     font-size: 10.5px; font-weight: 700; color: #b9a4f5;
     text-decoration: underline; text-underline-offset: 3px; text-align: right; direction: rtl;
 }
@@ -514,9 +515,8 @@ img { display: block; max-width: 100%; }
             <div class="hm-promo-content">
                 <div class="hm-promo-title-row">
                     <h2 class="hm-promo-title">Dream Studio AI</h2>
-                    <span class="hm-promo-badge">חדש!</span>
                 </div>
-                <p class="hm-promo-sub">מתמונה או תוכנית — לרעיונות, הדמיות ותכנון שמדמיינים את עצמכם.</p>
+                <p class="hm-promo-sub">מתמונה או תוכנית — לרעיונות,<br>הדמיות ותכנון שמדמיינים את עצמכם.</p>
                 <a class="hm-promo-link" href="javascript:void(0)" onclick="event.stopPropagation();goTo('dream')">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>
                     <span>בואו תגלו איזה כיף לעצב</span>
